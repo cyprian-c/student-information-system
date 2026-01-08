@@ -1,0 +1,10 @@
+config/database.php
+.env
+.env.*
+sql/school_db.sql
+uploads/
+logs/
+*.log
+.vscode/
+.idea/
+structure.txt

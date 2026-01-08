@@ -1,0 +1,27 @@
+school_admission/
+├── config/
+│   └── database.php      # PDO connection settings
+├── assets/
+│   ├── css/
+│   │   └── style.css     # Bootstrap + custom styles
+│   ├── js/
+│   │   └── script.js     # Form validation, AJAX
+│   └── images/           # Logos, avatars
+├── includes/
+│   ├── header.php        # Navigation, session checks
+│   └── footer.php        # Common footer
+├── models/
+│   └── Student.php       # Class for DB operations (CRUD methods)
+├── views/
+│   ├── admission-form.php # HTML form for new biodata
+│   ├── students-list.php  # Table view of records
+│   └── edit-student.php   # Update form
+├── controllers/
+│   └── student_controller.php # Handles form submissions, routing
+├── admin/                 # Protected admin pages
+│   ├── dashboard.php
+│   └── reports.php
+├── sql/
+│   └── school_db.sql     # CREATE TABLE script
+├── index.php              # Landing page / redirect to dashboard
+└── README.md              # Setup instructions
