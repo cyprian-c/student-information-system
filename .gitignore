@@ -8,3 +8,6 @@ logs/
 .vscode/
 .idea/
 structure.txt
+pdo/@pdo.php
+sql/school_db.sql
+sql/db-connect.php
