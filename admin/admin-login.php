@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = 'Please enter both username and password';
     } else {
         // Hardcoded admin credentials
-        if ($username === 'admn' && $password === 'admn@123') {
+        if ($username === 'admin' && $password === 'admn@123') {
             $_SESSION['admin_id'] = 1;
             $_SESSION['admin_name'] = 'Administrator';
             $_SESSION['admin_email'] = 'support@homeworker.info';
