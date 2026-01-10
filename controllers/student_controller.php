@@ -22,7 +22,7 @@ switch ($action) {
                 'enrollment_date' => $_POST['enrollment_date'],
                 'status' => $_POST['status'] ?? 'active'
             ];
-            
+
             if ($student->create($data)) {
                 $_SESSION['success'] = 'Student added successfully!';
                 header('Location: ../views/students-list.php');
@@ -32,7 +32,7 @@ switch ($action) {
             }
         }
         break;
-    
+
     case 'update':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
@@ -50,7 +50,7 @@ switch ($action) {
                 'enrollment_date' => $_POST['enrollment_date'],
                 'status' => $_POST['status']
             ];
-            
+
             if ($student->update($id, $data)) {
                 $_SESSION['success'] = 'Student updated successfully!';
             } else {
@@ -59,7 +59,7 @@ switch ($action) {
             header('Location: ../views/students-list.php');
         }
         break;
-    
+
     case 'delete':
         if (isset($_GET['id'])) {
             if ($student->delete($_GET['id'])) {
@@ -70,31 +70,9 @@ switch ($action) {
         }
         header('Location: ../views/students-list.php');
         break;
-    
-    case 'login':
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = trim($_POST['username']);
-            $password = $_POST['password'];
-            
-            // Simple authentication (in production, hash passwords properly)
-            if ($username === 'admin' && password_verify($password, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi')) {
-                $_SESSION['admin_logged_in'] = true;
-                $_SESSION['username'] = $username;
-                header('Location: ../admin/dashboard.php');
-            } else {
-                $_SESSION['error'] = 'Invalid credentials!';
-                header('Location: ../index.php');
-            }
-        }
-        break;
-    
-    case 'logout':
-        session_destroy();
-        header('Location: ../index.php');
-        break;
-    
+
+
     default:
         header('Location: ../index.php');
         break;
 }
-?>

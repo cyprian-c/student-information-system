@@ -6,7 +6,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 $admin_pages = ['dashboard.php', 'reports.php'];
 
 if (in_array($current_page, $admin_pages) && !isset($_SESSION['admin_logged_in'])) {
-    header('Location: ../index.php');
+    header('Location: ../admin-login.php');
     exit;
 }
 ?>
@@ -55,7 +55,7 @@ if (in_array($current_page, $admin_pages) && !isset($_SESSION['admin_logged_in']
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../controllers/student_controller.php?action=logout">
+                            <a class="nav-link" href="../admin-logout.php">
                                 <i class="bi bi-box-arrow-right"></i> Logout
                             </a>
                         </li>

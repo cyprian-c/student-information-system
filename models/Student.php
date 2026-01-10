@@ -1,14 +1,14 @@
 <?php
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/pdo.php';
 
 class Student
 {
-    private $conn;
+    private $pdo;
     private $table = 'students';
 
     public function __construct()
     {
-        $this->conn = Database::getInstance()->getConnection();
+        $this->pdo = getPDO();
     }
 
     // Create new student
@@ -21,7 +21,7 @@ class Student
                 (:student_id, :first_name, :last_name, :email, :phone, :date_of_birth, 
                  :gender, :address, :guardian_name, :guardian_phone, :class, :enrollment_date, :status)";
 
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
 
         // Generate unique student ID
         $data['student_id'] = $this->generateStudentId();
@@ -52,7 +52,7 @@ class Student
 
         $sql .= " ORDER BY created_at DESC";
 
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll();
     }
@@ -61,7 +61,7 @@ class Student
     public function readOne($id)
     {
         $sql = "SELECT * FROM {$this->table} WHERE id = :id LIMIT 1";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
         return $stmt->fetch();
     }
@@ -85,7 +85,7 @@ class Student
                 WHERE id = :id";
 
         $data['id'] = $id;
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         return $stmt->execute($data);
     }
 
@@ -93,7 +93,7 @@ class Student
     public function delete($id)
     {
         $sql = "DELETE FROM {$this->table} WHERE id = :id";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         return $stmt->execute(['id' => $id]);
     }
 
@@ -103,19 +103,19 @@ class Student
         $stats = [];
 
         // Total students
-        $stmt = $this->conn->query("SELECT COUNT(*) as total FROM {$this->table}");
+        $stmt = $this->pdo->query("SELECT COUNT(*) as total FROM {$this->table}");
         $stats['total'] = $stmt->fetch()['total'];
 
         // Active students
-        $stmt = $this->conn->query("SELECT COUNT(*) as active FROM {$this->table} WHERE status = 'active'");
+        $stmt = $this->pdo->query("SELECT COUNT(*) as active FROM {$this->table} WHERE status = 'active'");
         $stats['active'] = $stmt->fetch()['active'];
 
         // Inactive students
-        $stmt = $this->conn->query("SELECT COUNT(*) as inactive FROM {$this->table} WHERE status = 'inactive'");
+        $stmt = $this->pdo->query("SELECT COUNT(*) as inactive FROM {$this->table} WHERE status = 'inactive'");
         $stats['inactive'] = $stmt->fetch()['inactive'];
 
         // Total classes
-        $stmt = $this->conn->query("SELECT COUNT(DISTINCT class) as classes FROM {$this->table}");
+        $stmt = $this->pdo->query("SELECT COUNT(DISTINCT class) as classes FROM {$this->table}");
         $stats['classes'] = $stmt->fetch()['classes'];
 
         return $stats;
@@ -125,7 +125,7 @@ class Student
     public function getClasses()
     {
         $sql = "SELECT DISTINCT class FROM {$this->table} ORDER BY class";
-        $stmt = $this->conn->query($sql);
+        $stmt = $this->pdo->query($sql);
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
