@@ -11,3 +11,8 @@ structure.txt
 pdo/@pdo.php
 sql/school_db.sql
 sql/db-connect.php
+admin-login.php
+test-db.php
+create-admin.php
+config/pdo.php
+contollers/admin-auth.php
