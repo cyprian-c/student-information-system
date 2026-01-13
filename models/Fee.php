@@ -260,3 +260,19 @@ class Fee {
     public function getFeeStatistics($academicYear) {
         $sql = "SELECT 
                     COUNT(DISTINCT sf.student_id) as total_students,
+                    SUM(sf.total_fee) as total_expected,
+                    SUM(sf.amount_paid) as total_collected,
+                    SUM(sf.balance) as total_outstanding,
+                    COUNT(CASE WHEN sf.status = 'paid' THEN 1 END) as fully_paid_count,
+                    COUNT(CASE WHEN sf.status = 'partial' THEN 1 END) as partial_paid_count,
+                    COUNT(CASE WHEN sf.status = 'pending' THEN 1 END) as not_paid_count,
+                    COUNT(CASE WHEN sf.status = 'overdue' THEN 1 END) as overdue_count
+                FROM student_fees sf
+                WHERE sf.academic_year = :academic_year";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['academic_year' => $academicYear]);
+        return $stmt->fetch();
+    }
+}
+?>
