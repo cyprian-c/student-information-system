@@ -52,48 +52,18 @@ if (isset($_GET['id'])) {
                             </div>
 
                             <div class="col-md-6">
-                                <label for="email" class="form-label required">Email</label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                    value="<?php echo $student['email'] ?? ''; ?>" required>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="phone" class="form-label required">Phone</label>
-                                <input type="tel" class="form-control" id="phone" name="phone"
-                                    value="<?php echo $student['phone'] ?? ''; ?>" required>
+                                <label for="gender" class="form-label required">Gender</label>
+                                <select class="form-select" id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male" <?php echo ($student['gender'] ?? '') == 'Male' ? 'selected' : ''; ?>>Male</option>
+                                    <option value="Female" <?php echo ($student['gender'] ?? '') == 'Female' ? 'selected' : ''; ?>>Female</option>
+                                </select>
                             </div>
 
                             <div class="col-md-6">
                                 <label for="date_of_birth" class="form-label required">Date of Birth</label>
                                 <input type="date" class="form-control" id="date_of_birth" name="date_of_birth"
                                     value="<?php echo $student['date_of_birth'] ?? ''; ?>" required>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="gender" class="form-label required">Gender</label>
-                                <select class="form-select" id="gender" name="gender" required>
-                                    <option value="">Select Gender</option>
-                                    <option value="Male" <?php echo ($student['gender'] ?? '') == 'Male' ? 'selected' : ''; ?>>Male</option>
-                                    <option value="Female" <?php echo ($student['gender'] ?? '') == 'Female' ? 'selected' : ''; ?>>Female</option>
-                                    <option value="Other" <?php echo ($student['gender'] ?? '') == 'Other' ? 'selected' : ''; ?>>Other</option>
-                                </select>
-                            </div>
-
-                            <div class="col-12">
-                                <label for="address" class="form-label required">Address</label>
-                                <textarea class="form-control" id="address" name="address" rows="2" required><?php echo $student['address'] ?? ''; ?></textarea>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="guardian_name" class="form-label required">Guardian Name</label>
-                                <input type="text" class="form-control" id="guardian_name" name="guardian_name"
-                                    value="<?php echo $student['guardian_name'] ?? ''; ?>" required>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="guardian_phone" class="form-label required">Guardian Phone</label>
-                                <input type="tel" class="form-control" id="guardian_phone" name="guardian_phone"
-                                    value="<?php echo $student['guardian_phone'] ?? ''; ?>" required>
                             </div>
 
                             <div class="col-md-6">
@@ -108,6 +78,25 @@ if (isset($_GET['id'])) {
                                     <?php endfor; ?>
                                 </select>
                             </div>
+
+                            <div class="col-md-6">
+                                <label for="parent_name" class="form-label required">Parent/Guardian Name</label>
+                                <input type="text" class="form-control" id="parent_name" name="parent_name"
+                                    value="<?php echo $student['parent_name'] ?? ''; ?>" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="parent_phone" class="form-label required">Parent/Guardian Phone</label>
+                                <input type="tel" class="form-control" id="parent_phone" name="parent_phone"
+                                    value="<?php echo $student['parent_phone'] ?? ''; ?>" required>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="address" class="form-label required">Address</label>
+                                <textarea class="form-control" id="address" name="address" rows="2"><?php echo $student['address'] ?? ''; ?></textarea>
+                            </div>
+
+
 
                             <div class="col-md-6">
                                 <label for="enrollment_date" class="form-label required">Enrollment Date</label>

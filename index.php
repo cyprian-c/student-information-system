@@ -55,7 +55,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 hero-content">
-                    <h1>Modern Student Information System</h1>
+                    <h1>Student Information System</h1>
                     <p>Streamline your school administration with our comprehensive, easy-to-use student management platform.</p>
                     <a href="admin-login.php" class="btn btn-get-started">
                         Get Started <i class="bi bi-arrow-right"></i>
