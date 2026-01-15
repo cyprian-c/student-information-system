@@ -45,7 +45,7 @@ if (in_array($current_page, $admin_pages) && !isset($_SESSION['admin_logged_in']
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../views/students-list.php">
+                            <a class="nav-link" href="../student-list.php">
                                 <i class="bi bi-people"></i> Students
                             </a>
                         </li>
