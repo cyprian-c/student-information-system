@@ -11,14 +11,12 @@ switch ($action) {
             $data = [
                 'first_name' => trim($_POST['first_name']),
                 'last_name' => trim($_POST['last_name']),
-                'email' => trim($_POST['email']),
-                'phone' => trim($_POST['phone']),
-                'date_of_birth' => $_POST['date_of_birth'],
                 'gender' => $_POST['gender'],
-                'address' => trim($_POST['address']),
-                'guardian_name' => trim($_POST['guardian_name']),
-                'guardian_phone' => trim($_POST['guardian_phone']),
+                'date_of_birth' => $_POST['date_of_birth'],
                 'class' => $_POST['class'],
+                'parent_name' => trim($_POST['parent_name']),
+                'parent_phone' => trim($_POST['parent_phone']),
+                'address' => trim($_POST['address']),
                 'enrollment_date' => $_POST['enrollment_date'],
                 'status' => $_POST['status'] ?? 'active'
             ];
@@ -39,14 +37,12 @@ switch ($action) {
             $data = [
                 'first_name' => trim($_POST['first_name']),
                 'last_name' => trim($_POST['last_name']),
-                'email' => trim($_POST['email']),
-                'phone' => trim($_POST['phone']),
-                'date_of_birth' => $_POST['date_of_birth'],
                 'gender' => $_POST['gender'],
-                'address' => trim($_POST['address']),
-                'guardian_name' => trim($_POST['guardian_name']),
-                'guardian_phone' => trim($_POST['guardian_phone']),
+                'date_of_birth' => $_POST['date_of_birth'],
                 'class' => $_POST['class'],
+                'parent_name' => trim($_POST['parent_name']),
+                'parent_phone' => trim($_POST['parent_phone']),
+                'address' => trim($_POST['address']),
                 'enrollment_date' => $_POST['enrollment_date'],
                 'status' => $_POST['status']
             ];

@@ -15,12 +15,10 @@ class Student
     public function create($data)
     {
         $sql = "INSERT INTO {$this->table} 
-                (student_id, first_name, last_name, email, phone, date_of_birth, 
-                 gender, address, guardian_name, guardian_phone, class, enrollment_date, status) 
+                (student_id, first_name, last_name, gender, date_of_birth, class,parent_name, parent_phone, address, enrollment_date, status) 
                 VALUES 
-                (:student_id, :first_name, :last_name, :email, :phone, :date_of_birth, 
-                 :gender, :address, :guardian_name, :guardian_phone, :class, :enrollment_date, :status)";
-
+                (:student_id, :first_name, :last_name, :gender, :date_of_birth, 
+                 :class, :parent_name, :parent_phone, :address, :enrollment_date, :status)";
         $stmt = $this->pdo->prepare($sql);
 
         // Generate unique student ID
@@ -36,7 +34,7 @@ class Student
         $params = [];
 
         if (!empty($search)) {
-            $sql .= " AND (first_name LIKE :search OR last_name LIKE :search OR email LIKE :search OR student_id LIKE :search)";
+            $sql .= " AND (first_name LIKE :search OR last_name LIKE :search OR student_id LIKE :search)";
             $params['search'] = "%{$search}%";
         }
 
@@ -72,14 +70,12 @@ class Student
         $sql = "UPDATE {$this->table} 
                 SET first_name = :first_name,
                     last_name = :last_name,
-                    email = :email,
-                    phone = :phone,
-                    date_of_birth = :date_of_birth,
                     gender = :gender,
-                    address = :address,
-                    guardian_name = :guardian_name,
-                    guardian_phone = :guardian_phone,
+                    date_of_birth = :date_of_birth,
                     class = :class,
+                    parent_name = :parent_name,
+                    parent_phone = :parent_phone,
+                    address = :address,
                     enrollment_date = :enrollment_date,
                     status = :status
                 WHERE id = :id";
@@ -133,7 +129,26 @@ class Student
     private function generateStudentId()
     {
         $year = date('Y');
-        $random = str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
-        return "STU{$year}{$random}";
+        $db = $this->pdo;
+        $db->beginTransaction();
+        try {
+            $stmt = $db->prepare("SELECT last_sequence FROM student_sequences WHERE year = ? FOR UPDATE");
+            $stmt->execute([$year]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                $nextSequence = $result['last_sequence'] + 1;
+                $update = $db->prepare("UPDATE student_sequences SET last_sequence = ? WHERE year = ?");
+                $update->execute([$nextSequence, $year]);
+            } else {
+                $nextSequence = 1;
+                $insert = $db->prepare("INSERT INTO student_sequences (year, last_sequence) VALUES (?, ?)");
+                $insert->execute([$year, $nextSequence]);
+            }
+            $db->commit();
+            return "SMA{$year}" . str_pad($nextSequence, 4, '0', STR_PAD_LEFT);
+        } catch (Exception $e) {
+            $db->rollBack();
+            throw $e;
+        }
     }
 }
