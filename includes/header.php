@@ -34,26 +34,94 @@ if (in_array($current_page, $admin_pages) && !isset($_SESSION['admin_logged_in']
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <?php if (isset($_SESSION['admin_logged_in'])): ?>
+                        <!-- Dashboard -->
                         <li class="nav-item">
                             <a class="nav-link" href="../admin/dashboard.php">
                                 <i class="bi bi-speedometer2"></i> Dashboard
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../views/admission-form.php">
-                                <i class="bi bi-person-plus"></i> New Admission
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../student-list.php">
+
+                        <!-- Students Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 <i class="bi bi-people"></i> Students
                             </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../views/admission-form.php">
+                                        <i class="bi bi-person-plus"></i> New Admission
+                                    </a></li>
+                                <li><a class="dropdown-item" href="../student-list.php">
+                                        <i class="bi bi-list-ul"></i> All Students
+                                    </a></li>
+                                <li><a class="dropdown-item" href="../views/students-list.php">
+                                        <i class="bi bi-table"></i> Student Records
+                                    </a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../admin/reports.php">
+
+                        <!-- Fees Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-cash-coin"></i> Fees
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../views/fee-management.php">
+                                        <i class="bi bi-wallet2"></i> Fee Management
+                                    </a></li>
+                                <li><a class="dropdown-item" href="../views/fee-structure.php">
+                                        <i class="bi bi-gear"></i> Fee Structure
+                                    </a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Academic Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-book"></i> Academic
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../views/academic-dashboard.php">
+                                        <i class="bi bi-grid"></i> Academic Dashboard
+                                    </a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="../views/grade-entry.php">
+                                        <i class="bi bi-pencil-square"></i> Enter Grades
+                                    </a></li>
+                                <li><a class="dropdown-item" href="../views/attendance-entry.php">
+                                        <i class="bi bi-calendar-check"></i> Mark Attendance
+                                    </a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="../views/subjects.php">
+                                        <i class="bi bi-journal-text"></i> Manage Subjects
+                                    </a></li>
+                                <li><a class="dropdown-item" href="../views/exams.php">
+                                        <i class="bi bi-clipboard-check"></i> Manage Exams
+                                    </a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Reports Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 <i class="bi bi-file-bar-graph"></i> Reports
                             </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../admin/reports.php">
+                                        <i class="bi bi-graph-up"></i> System Reports
+                                    </a></li>
+                                <li><a class="dropdown-item" href="../views/academic-reports.php">
+                                        <i class="bi bi-award"></i> Academic Reports
+                                    </a></li>
+                                <li><a class="dropdown-item" href="../views/fee-reports.php">
+                                        <i class="bi bi-cash-stack"></i> Fee Reports
+                                    </a></li>
+                            </ul>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="../admin-logout.php">
                                 <i class="bi bi-box-arrow-right"></i> Logout
