@@ -89,10 +89,11 @@ $recentStudents = array_slice($recentStudents, 0, 5);
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Student ID</th>
+                                        <th>Student ADM</th>
                                         <th>Name</th>
                                         <th>Class</th>
-                                        <th>Email</th>
+                                        <th>Parent</th>
+                                        <th>Phone</th>
                                         <th>Status</th>
                                         <th>Enrollment Date</th>
                                     </tr>
@@ -103,7 +104,8 @@ $recentStudents = array_slice($recentStudents, 0, 5);
                                             <td><strong><?php echo htmlspecialchars($student['student_id']); ?></strong></td>
                                             <td><?php echo htmlspecialchars($student['first_name'] . ' ' . $student['last_name']); ?></td>
                                             <td><?php echo htmlspecialchars($student['class']); ?></td>
-                                            <td><?php echo htmlspecialchars($student['email']); ?></td>
+                                            <td><?php echo htmlspecialchars($student['parent_name']); ?></td>
+                                            <td><?php echo htmlspecialchars($student['parent_phone']); ?></td>
                                             <td>
                                                 <?php if ($student['status'] === 'active'): ?>
                                                     <span class="badge bg-success">Active</span>

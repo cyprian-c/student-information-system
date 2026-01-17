@@ -117,7 +117,7 @@ if (isset($_GET['id'])) {
                             <button type="submit" class="btn btn-primary">
                                 <i class="bi bi-save"></i> <?php echo $isEdit ? 'Update Student' : 'Save Student'; ?>
                             </button>
-                            <a href="students-list.php" class="btn btn-secondary">
+                            <a href="student-list.php" class="btn btn-secondary">
                                 <i class="bi bi-x-circle"></i> Cancel
                             </a>
                         </div>
