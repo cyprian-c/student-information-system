@@ -26,7 +26,7 @@ $whereConditions = [];
 $params = [];
 
 if (!empty($search)) {
-    $whereConditions[] = "(first_name LIKE :search OR last_name LIKE :search OR email LIKE :search OR student_id LIKE :search)";
+    $whereConditions[] = "(first_name LIKE :search OR last_name LIKE :search OR student_id LIKE :search)";
     $params['search'] = "%{$search}%";
 }
 
@@ -114,7 +114,7 @@ $classes = $classStmt->fetchAll(PDO::FETCH_COLUMN);
                         class="form-control"
                         id="search"
                         name="search"
-                        placeholder="Search by name, email, or ID..."
+                        placeholder="Search by name or ID..."
                         value="<?php echo htmlspecialchars($search); ?>">
                 </div>
 
@@ -180,12 +180,11 @@ $classes = $classStmt->fetchAll(PDO::FETCH_COLUMN);
                 <table class="table table-hover mb-0" id="studentsTable">
                     <thead class="table-light">
                         <tr>
-                            <th class="px-4 py-3">Student ID</th>
+                            <th class="px-4 py-3">Student ADM</th>
                             <th class="px-4 py-3">Name</th>
                             <th class="px-4 py-3">Class</th>
-                            <th class="px-4 py-3">Email</th>
+                            <th class="px-4 py-3">Parent</th>
                             <th class="px-4 py-3">Phone</th>
-                            <th class="px-4 py-3">Guardian</th>
                             <th class="px-4 py-3">Status</th>
                             <th class="px-4 py-3 text-center">Actions</th>
                         </tr>
@@ -230,19 +229,17 @@ $classes = $classStmt->fetchAll(PDO::FETCH_COLUMN);
                                         </span>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <a href="mailto:<?php echo htmlspecialchars($student['email']); ?>" class="text-decoration-none">
-                                            <?php echo htmlspecialchars($student['email']); ?>
-                                        </a>
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <?php echo htmlspecialchars($student['phone']); ?>
+                                        <div>
+                                            <div class="small fw-bold"><?php echo htmlspecialchars($student['guardian_name']); ?></div>
+
+                                        </div>
                                     </td>
                                     <td class="px-4 py-3">
                                         <div>
-                                            <div class="small fw-bold"><?php echo htmlspecialchars($student['guardian_name']); ?></div>
-                                            <div class="small text-muted"><?php echo htmlspecialchars($student['guardian_phone']); ?></div>
+                                            <div class="small fw-bold"><?php echo htmlspecialchars($student['guardian_phone']); ?></div>
                                         </div>
                                     </td>
+
                                     <td class="px-4 py-3">
                                         <?php if ($student['status'] === 'active'): ?>
                                             <span class="badge bg-success">
