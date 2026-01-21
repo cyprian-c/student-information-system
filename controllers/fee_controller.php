@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../models/Fee.php';
+require_once __DIR__ . '/../models/SMSService.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
@@ -9,6 +10,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 }
 
 $fee = new Fee();
+$SMS = new SMSService();
 $action = $_GET['action'] ?? '';
 
 switch ($action) {
@@ -84,4 +86,62 @@ switch ($action) {
     default:
         header('Location: ../views/fee-management.php');
         exit;
+
+    case 'record_payment':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'student_fee_id' => $_POST['student_fee_id'],
+                'student_id' => $_POST['student_id'],
+                'payment_date' => $_POST['payment_date'],
+                'amount' => $_POST['amount'],
+                'payment_method' => $_POST['payment_method'],
+                'transaction_id' => $_POST['transaction_id'] ?? null,
+                'payment_for' => $_POST['payment_for'] ?? 'School Fees',
+                'remarks' => $_POST['remarks'] ?? null,
+                'recorded_by' => $_SESSION['admin_id']
+            ];
+
+            $receiptNumber = $fee->recordPayment($data);
+
+            if ($receiptNumber) {
+                $_SESSION['success'] = "Payment recorded successfully! Receipt No: {$receiptNumber}";
+
+                // ========== SMS NOTIFICATION ========== //
+                try {
+                    // Get student details
+                    require_once __DIR__ . '/../models/Student.php';
+                    $studentModel = new Student();
+                    $student = $studentModel->readOne($data['student_id']);
+
+                    // Get updated fee balance
+                    $feeData = $fee->getStudentFee($data['student_id'], '2024-2025');
+
+                    // Send SMS to guardian
+                    $sms = new SMSService();
+                    $smsResult = $sms->sendPaymentConfirmation(
+                        $student['guardian_phone'],
+                        $student['first_name'] . ' ' . $student['last_name'],
+                        $data['amount'],
+                        $receiptNumber,
+                        $feeData['balance']
+                    );
+
+                    // Log SMS result
+                    if ($smsResult['status'] === 'success' || isset($smsResult['SMSMessageData'])) {
+                        error_log("SMS sent successfully to " . $student['guardian_phone']);
+                    }
+                } catch (Exception $e) {
+                    error_log("SMS Error: " . $e->getMessage());
+                    // Don't show error to user - payment was successful
+                }
+                // ========== END SMS ========== //
+
+            } else {
+                $_SESSION['error'] = "Failed to record payment. Please try again.";
+            }
+
+            header('Location: ../views/fee-payment.php?student_id=' . $_POST['student_id']);
+            exit;
+        }
+        break;
 }
