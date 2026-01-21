@@ -14,6 +14,7 @@ sql/db-connect.php
 admin-login.php
 test-db.php
 create-admin.php
+/config/
 config/pdo.php
 contollers/admin-auth.php
 /sql/advanced_features.sql
