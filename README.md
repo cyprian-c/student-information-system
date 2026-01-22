@@ -1,4 +1,4 @@
-Student Information System - Enterprise Grade MVP
+Student Information System - Enterprise
 
 A professional PHP-based student management system with secure data storage and fast retrieval.
 
@@ -14,69 +14,6 @@ A professional PHP-based student management system with secure data storage and 
 - ✅ Form validation
 - ✅ PDO prepared statements (SQL injection protection)
 
-## Requirements
-
-- PHP 7.4 or higher
-- MySQL 5.7 or higher
-- Apache/Nginx web server
-- PDO MySQL extension
-
-## Installation
-
-1. **Upload files to your server**
-
-```bash
-   Upload all files to your web root directory (e.g., public_html/school_admission/)
-```
-
-2. **Create database**
-
-```bash
-   - Login to phpMyAdmin or MySQL command line
-   - Import the file: sql/school_db.sql
-```
-
-3. **Configure database connection**
-
-```bash
-   Edit config/database.php and update:
-   - DB_HOST (usually 'localhost')
-   - DB_USER (your database username)
-   - DB_PASS (your database password)
-   - DB_NAME (school_db)
-```
-
-4. **Set permissions**
-
-```bash
-   chmod 755 -R school_admission/
-```
-
-5. **Access the system**
-
-```
-   https://yourdomain.com/school_admission/
-
-   Default login:
-   Username: admin
-   Password: admin123
-```
-
-## File Structure
-
-```
-school_admission/
-├── config/          # Database configuration
-├── assets/          # CSS, JS, images
-├── includes/        # Header, footer templates
-├── models/          # Database models (Student class)
-├── views/           # User interface pages
-├── controllers/     # Business logic handlers
-├── admin/           # Admin-only pages
-├── sql/             # Database schema
-└── index.php        # Login page
-```
-
 ## Security Features
 
 - Password hashing with bcrypt
@@ -87,6 +24,11 @@ school_admission/
 - Input validation and sanitization
 
 ## Usage
+
+## Installation
+
+Create an account after paying one time fee to use the service
+and you are good to go.
 
 ### Adding Students
 
@@ -165,8 +107,8 @@ echo password_hash('your_new_password', PASSWORD_DEFAULT);
 
 ## Support
 
-For issues or questions, check the code comments or database schema.
+For issues or questions reach ocharo.dev@gmail.com
 
 ## License
 
-Free to use for educational and commercial purposes.
+MIT
