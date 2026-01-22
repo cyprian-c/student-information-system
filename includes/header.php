@@ -71,6 +71,12 @@ if (in_array($current_page, $admin_pages) && !isset($_SESSION['admin_logged_in']
                                 <li><a class="dropdown-item" href="../views/fee-structure.php">
                                         <i class="bi bi-gear"></i> Fee Structure
                                     </a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="../views/fee-reminders.php">
+                                        <i class="bi bi-bell"></i> Send Reminders
+                                    </a></li>
                             </ul>
                         </li>
 

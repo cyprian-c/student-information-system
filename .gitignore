@@ -18,3 +18,4 @@ create-admin.php
 config/pdo.php
 contollers/admin-auth.php
 /sql/advanced_features.sql
+test-advanta-sms.php

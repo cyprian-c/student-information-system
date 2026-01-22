@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_reminders'])) {
 
         if ($studentData && $feeData && $feeData['balance'] > 0) {
             $result = $sms->sendBalanceReminder(
-                $studentData['guardian_phone'],
+                $studentData['parent_phone'],
                 $studentData['first_name'] . ' ' . $studentData['last_name'],
                 $feeData['total_fee'],
                 $feeData['amount_paid'],
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_reminders'])) {
                                 <th>Student ID</th>
                                 <th>Name</th>
                                 <th>Class</th>
-                                <th>Guardian Phone</th>
+                                <th>Parent Phone</th>
                                 <th>Total Fee</th>
                                 <th>Paid</th>
                                 <th>Balance</th>
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_reminders'])) {
                                         <td><?php echo htmlspecialchars($s['student_id']); ?></td>
                                         <td><?php echo htmlspecialchars($s['first_name'] . ' ' . $s['last_name']); ?></td>
                                         <td><?php echo htmlspecialchars($s['class']); ?></td>
-                                        <td><?php echo htmlspecialchars($s['guardian_phone'] ?? 'N/A'); ?></td>
+                                        <td><?php echo htmlspecialchars($s['parent_phone'] ?? 'N/A'); ?></td>
                                         <td>KSh <?php echo number_format($s['total_fee'], 2); ?></td>
                                         <td>KSh <?php echo number_format($s['amount_paid'], 2); ?></td>
                                         <td class="text-danger"><strong>KSh <?php echo number_format($s['balance'], 2); ?></strong></td>
