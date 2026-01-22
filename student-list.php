@@ -185,7 +185,7 @@ $classes = $classStmt->fetchAll(PDO::FETCH_COLUMN);
                             <th class="px-4 py-3">Class</th>
                             <th class="px-4 py-3">Parent</th>
                             <th class="px-4 py-3">Phone</th>
-                            <th class="px-4 py-3">Status</th>
+                            <th class="px-4 py-3">Fee Status</th>
                             <th class="px-4 py-3 text-center">Actions</th>
                         </tr>
                     </thead>
@@ -239,17 +239,28 @@ $classes = $classStmt->fetchAll(PDO::FETCH_COLUMN);
                                             <div class="small fw-bold"><?php echo htmlspecialchars($student['guardian_phone']); ?></div>
                                         </div>
                                     </td>
+                                    <td>
+                                        <?php
+                                        // Check if fee is assigned
+                                        require_once 'models/Fee.php';
+                                        $feeModel = new Fee();
+                                        $currentYear = date('Y');
+                                        $academicYear = $currentYear . '-' . ($currentYear + 1);
+                                        $feeData = $feeModel->getStudentFee($student['id'], $academicYear);
 
-                                    <td class="px-4 py-3">
-                                        <?php if ($student['status'] === 'active'): ?>
-                                            <span class="badge bg-success">
-                                                <i class="bi bi-check-circle"></i> Active
-                                            </span>
-                                        <?php else: ?>
-                                            <span class="badge bg-warning text-dark">
-                                                <i class="bi bi-pause-circle"></i> Inactive
-                                            </span>
-                                        <?php endif; ?>
+                                        if ($feeData) {
+                                            $statusClass = [
+                                                'paid' => 'success',
+                                                'partial' => 'warning',
+                                                'pending' => 'secondary',
+                                                'overdue' => 'danger'
+                                            ];
+                                            $badgeClass = $statusClass[$feeData['status']] ?? 'secondary';
+                                            echo '<span class="badge bg-' . $badgeClass . '">' . ucfirst($feeData['status']) . '</span>';
+                                        } else {
+                                            echo '<span class="badge bg-dark">Not Assigned</span>';
+                                        }
+                                        ?>
                                     </td>
                                     <td class="px-4 py-3">
                                         <div class="btn-group btn-group-sm" role="group">

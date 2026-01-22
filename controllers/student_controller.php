@@ -22,7 +22,34 @@ switch ($action) {
             ];
 
             if ($student->create($data)) {
-                $_SESSION['success'] = 'Student added successfully!';
+                // ============ AUTO FEE ALLOCATION ============ //
+                try {
+                    // Get the newly created student ID
+                    $pdo = getPDO();
+                    $lastId = $pdo->lastInsertId();
+
+                    // Get current academic year
+                    $currentYear = date('Y');
+                    $nextYear = $currentYear + 1;
+                    $academicYear = $currentYear . '-' . $nextYear;
+
+                    // Auto-assign fee for the student's class
+                    require_once __DIR__ . '/../models/Fee.php';
+                    $feeModel = new Fee();
+
+                    $feeAssigned = $feeModel->assignFeeToStudent($lastId, $academicYear);
+
+                    if ($feeAssigned) {
+                        $_SESSION['success'] = 'Student added successfully! Fee automatically assigned for ' . $academicYear . '.';
+                    } else {
+                        $_SESSION['success'] = 'Student added successfully! Note: Fee structure not found for ' . $data['class'] . '. Please assign manually.';
+                    }
+                } catch (Exception $e) {
+                    error_log("Fee allocation error: " . $e->getMessage());
+                    $_SESSION['success'] = 'Student added successfully! Please assign fees manually.';
+                }
+                // ============ END AUTO FEE ALLOCATION ============ //
+
                 header('Location: ../views/students-list.php');
             } else {
                 $_SESSION['error'] = 'Failed to add student. Please try again.';
