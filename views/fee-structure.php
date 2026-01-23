@@ -3,7 +3,7 @@ require_once '../includes/header.php';
 require_once '../models/Fee.php';
 
 $fee = new Fee();
-$academicYear = $_GET['academic_year'] ?? '2024-2025';
+$academicYear = $_GET['academic_year'] ?? '2025-2026';
 $feeStructures = $fee->getAllFeeStructures($academicYear);
 ?>
 
