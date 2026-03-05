@@ -1,4 +1,4 @@
-Student Information System - Enterprise
+Student Information System
 
 A professional PHP-based student management system with secure data storage and fast retrieval.
 
